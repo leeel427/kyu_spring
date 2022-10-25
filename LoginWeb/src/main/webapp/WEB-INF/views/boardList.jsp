@@ -2,6 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:set var="loginout" value="${sessionScope.id==null ? 'Login': 'Logout' }" />
+<c:set var="loginoutLink" value="${sessionScope.id==null ? '/login/login' : '/login/logout' }" />
+<c:set var="SingUp" value="${sessionScope.id==null ? '': 'display:none' }" />
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,16 +16,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>게시판 리스트</title>
 	<link rel="stylesheet" href="<c:url value='/resources/css/menu.css' />">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 </head>
 <body>
-	보드리스트
 	<div id="menu">
 		<ul>
 			<li id="logo">ezen</li>
 			<li><a href="<c:url value='/' />">Home</a></li>
 			<li><a href="<c:url value='/board/list' />">Board</a></li>
-			<li><a href="<c:url value='/login/login' />">login</a></li>
-			<li><a href="<c:url value='/register/add' />">SingUp</a></li>
+			<li><a href="<c:url value='${loginoutLink }' />">${loginout }</a></li>
+			<li style="${SingUp}"><a href="<c:url value='/register/add' />">${SingUp }</a></li>
+			<li><a href=""><i class="fas fa-search small"></i></a></li>
 		</ul>
 	</div>
 	<div style="text-align: center;">

@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- <%@ page session="false" %>	1024삭제	 --%><!-- 이 페이지에서는 세션을 새로 시작하지 않음 -->
+
+<c:set var="loginout" value="${sessionScope.id==null ? 'Login': 'Logout' }" />
+<c:set var="loginoutLink" value="${sessionScope.id==null ? '/login/login' : '/login/logout' }" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +22,9 @@
 			<li id="logo">ezen</li>
 			<li><a href="<c:url value='/' />">Home</a></li>
 			<li><a href="<c:url value='/board/list' />">Board</a></li>
-			<li><a href="<c:url value='/login/login' />">login</a></li>
-			<li><a href="<c:url value='/register/add' />">SingUp</a></li>		
+			<li><a href="<c:url value='${loginoutLink }' />">${loginout }</a></li>
+			<li><a href="<c:url value='/register/add' />">SingUp</a></li>	
+			<li><a href=""><i class="fas fa-search small"></i></a></li>	
 		</ul>
 	</div>
 	<div style="text-align: center;">
