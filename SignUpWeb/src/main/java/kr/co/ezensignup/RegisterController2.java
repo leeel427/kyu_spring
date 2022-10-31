@@ -34,7 +34,7 @@ public class RegisterController2 {
 		}
 		
 		
-		return "registerInfo";
+		return "registerInfo";						// /WEB-INF/views/registerinfo.jsp
 	}
 
 private boolean isValid(User user) {
