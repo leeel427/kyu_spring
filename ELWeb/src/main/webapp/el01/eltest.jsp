@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,7 @@
 	${100 } <br/>
 	${"좋은 월요일 입니다." } <br/>
 	${10+1 } <br/>
-	${"10" + 1 } <br/>			<%-- 숫자형 문자열과 실제숫자를 더하면 문자열이 자동으로 숫자로 변환 --%>
-	${null + 10 } <br/>			<%-- null 변수사용하면 예외가 발생하지 않음 --%>
+	${"10" + 1 } <br/>			숫자형 문자열과 실제숫자를 더하면 문자열이 자동으로 숫자로 변환
+	${null + 10 } <br/>			null 변수사용하면 예외가 발생하지 않음
 </body>
-</html>
+</html> --%>

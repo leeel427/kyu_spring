@@ -1,5 +1,7 @@
 package kr.co.work;
 
+import kr.co.work.User;
+
 public interface UserDAO {
 	
 	User selectUser(String id);
