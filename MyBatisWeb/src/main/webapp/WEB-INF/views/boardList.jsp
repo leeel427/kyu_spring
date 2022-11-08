@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="loginId" value="${sessionScope.id} " />
-<c:set var="loginout" value="${loginId==null ? 'Login': 'Logout' }" />
+<c:set var="loginout" value="${loginId==null ? 'Login': 'ID:'+=loginId }" />
 <c:set var="loginoutLink" value="${loginId==null ? '/login/login' : '/login/logout' }" />
 <c:set var="SingUp" value="${loginId==null ? '': 'display:none' }" />
 
@@ -88,14 +88,25 @@
 			align-items: center;
 		}
 		
+		.page {
+			color: black;
+			padding: 6px;
+			margin-right: 10px;
+		}
 		
-		
+		.paging-container {
+			width: 100%;
+			height: 70px;
+			display: flex;
+			margin-top: 50px;
+			margin: auto;
+		}
 		
 	</style>
 
 </head>
 <body>
-		<div id="menu">
+	<div id="menu">
 		<ul>
 			<li id="logo">ezen</li>
 			<li><a href="<c:url value='/' />">Home</a></li>
@@ -131,7 +142,7 @@
 					<tr>
 						<td class="no">${boardDto.bno }</td>
 						<td class="title">
-							<a href="">
+							<a href="<c:url value="/board/read?bno=${boardDto.bno }&page=${page }&pageSize=${pageSize }" />">
 								${boardDto.title }
 							</a>
 						</td>
@@ -149,8 +160,22 @@
 			<br>
 			<div class="paging-container">
 				<div class="paging">
-					<c:if test="${totalcnt == null || totalcnt == 0 }"></c:if>
-					게시물이 없습니다.
+					<c:if test="${totalcnt == null || totalcnt == 0 }">
+						<div> 게시물이 없습니다.</div>
+					</c:if>
+			
+					<c:if test="${totalcnt != null || totalcnt != 0 }">
+						<c:if test="${pr.showPrev }">
+							<a class="page" href="<c:url value="/board/list?page=${pr.beginPage-1 }" />">◁</a>
+						</c:if>
+						<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
+							<a class="page" href="<c:url value="/board/list?page=${i }" />">${i }</a>
+						</c:forEach>
+ 						<c:if test="${pr.showNext }">
+							<a class="page" href="<c:url value="/board/list?page=${pr.endPage+1 }" />">▷</a>
+						</c:if> 
+
+					</c:if>
 				</div>
 			</div>
 		</div>

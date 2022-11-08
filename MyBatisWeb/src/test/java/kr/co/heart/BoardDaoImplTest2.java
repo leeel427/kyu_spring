@@ -20,7 +20,7 @@ public class BoardDaoImplTest2 {
 	public void insertDummyDataTest() throws Exception {
 		boardDao.deleleAll();
 		
-		for(int i=1; i<= 50; i++) {
+		for(int i=1; i<= 222; i++) {
 			
 			BoardDto boardDto = new BoardDto("Pioneering"+i, "Ready for Action"+i, "ezen");
 			boardDao.insert(boardDto);

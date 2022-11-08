@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,6 +25,36 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
+	
+	//@PostMapping("/remove")
+	public String remove(Integer bno, Integer page, Integer pageSize, Model m) {
+		
+		
+		return "redirect:/board/list";
+	}
+	
+	
+	@GetMapping("/read")
+	public String read(Integer bno, Integer page, Integer pageSize, Model m) {
+		try {
+			BoardDto boardDto = boardService.read(bno);
+			System.out.println(boardDto);
+//			m.addAttribute("boardDto", boardDto);				// 아래 문장과 동일
+			m.addAttribute(boardDto);							// 생략시 BoardDto 첫 문자를 소문자로 바꾸어 키값으로 인식
+
+			m.addAttribute("page", page);
+			m.addAttribute("pageSize", pageSize);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/board/list";
+		}
+		
+		return "board";
+	}
+	
+	
 	
 	@GetMapping("/list")
 	public String list(@RequestParam(defaultValue = "1") Integer page, 
@@ -58,6 +89,8 @@ public class BoardController {
 			m.addAttribute("list", list);
 			m.addAttribute("pr", pageResolver);
 			
+			m.addAttribute("page", page);
+			m.addAttribute("pageSize", pageSize);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
