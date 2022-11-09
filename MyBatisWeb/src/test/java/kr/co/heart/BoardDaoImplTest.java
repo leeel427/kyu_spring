@@ -31,7 +31,7 @@ public class BoardDaoImplTest {
 		System.out.println("boardDto = " + boardDto);
 		assertTrue(boardDto.getBno().equals(1));
 		
-		boardDao.deleleAll();
+		boardDao.deleteAll();
 		
 		boardDto = new BoardDto("Pioneering", "Ready for Action", "ezen");
 		boardDao.insert(boardDto);
@@ -44,7 +44,7 @@ public class BoardDaoImplTest {
 	
 	@Test
 	public void selectPageTest() throws Exception {
-		boardDao.deleleAll();
+		boardDao.deleteAll();
 		
 		for (int i = 1; i<=10; i++) {
 			BoardDto boardDto = new BoardDto("Pioneering"+i, "취업 준비"+i, "ezen");

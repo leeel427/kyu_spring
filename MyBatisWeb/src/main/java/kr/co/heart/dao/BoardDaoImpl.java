@@ -1,5 +1,6 @@
 package kr.co.heart.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public class BoardDaoImpl implements BoardDao{
 
 
 	@Override
-	public int deleleAll() throws Exception {
+	public int deleteAll() throws Exception {
 		// TODO Auto-generated method stub
 		return session.delete(namespace + "deleteAll");
 	}
@@ -56,6 +57,22 @@ public class BoardDaoImpl implements BoardDao{
 	public int increaseViewCnt(Integer bno) throws Exception {
 		// TODO Auto-generated method stub
 		return session.update(namespace + "increaseViewCnt", bno);
+	}
+
+
+	@Override
+	public int delete(Integer bno, String writer) throws Exception {
+		Map map = new HashMap();
+		map.put("bno", bno);
+		map.put("writer", writer);
+		return session.delete(namespace + "delete", map);
+	}
+
+
+	@Override
+	public int update(BoardDto boardDto) throws Exception {
+		
+		return session.update(namespace + "update", boardDto);
 	}
 
 

@@ -18,7 +18,7 @@ public class BoardDaoImplTest2 {
 
 	@Test
 	public void insertDummyDataTest() throws Exception {
-		boardDao.deleleAll();
+		boardDao.deleteAll();
 		
 		for(int i=1; i<= 222; i++) {
 			
