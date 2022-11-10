@@ -44,6 +44,24 @@
 		limit #{pageSize} offset #{offset}
   	</select>
   	
+   	<select id="searchSelectPage" parameterType="SearchItem" resultType="BoardDto">
+	  	select * 
+	  	from t_board
+		where true 
+		and #{option} like concat('%' ,'#{keyword}', '%')
+		order by reg_date desc, bno desc 
+		limit #{pageSize} offset #{offset}
+  	</select> 	
+  	
+  	<select id="searchResultCnt" parameterType="SearchItem" resultType="int">
+		select count(*) 
+		from t_board
+		where true 
+		and #{option} like concat('%' ,'#{keyword}', '%')
+  	</select>
+  	
+  	
+  	
   	<update id="increaseViewCnt" parameterType="int">
   		update t_board 
 		set view_cnt = view_cnt + 1
@@ -55,6 +73,7 @@
 		SET title=#{title}, content=#{content}, up_date = now() 
 		WHERE bno= #{bno } and writer = #{writer}
 	</update>
+ 
   	
   	
   	

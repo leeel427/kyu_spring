@@ -22,69 +22,14 @@
     <link rel="stylesheet" href="<c:url value='/resources/css/menu.css' />">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 	<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
+	
+	<!--서머노트 헤더  -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css"> <!-- header-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
 <title>게시글 조회</title>
 
-	<style type="text/css">
-		* {
-			box-sizing: border-box;
-			margin: 0;
-			padding: 0;
-			font-family: "Noto Sans KR", sans-serif;
-		}
-		
-		.container {
-			width: 50%;
-			margin: auto;	
-		}
-		.writing-header {
-			position: relative;
-			margin: 20px 0 0 0;
-			padding-bottom: 10px;
-			border-bottom: 1px solid #323232;
-		}
-		.frm {
-			width: 100%
-		}
-		
-		input {
-			width: 100%;
-			height: 35px;
-			margin: 5px 0px 10px 0px;
-			border: 1px solid #e9e8e8;
-			padding: 8px;
-			background: #f8f8f8;
-			outline-color: #e6e6e6;
-		}
-		
-		textarea {
-			width: 100%;
-			background: #f8f8f8;
-			margin: 5px 0px 10px 0px;
-			border: 1px solid #e9e8e8;
-			resize: none;
-			padding: 8px;
-			outline-color: #e6e6e6;
-		}
-		
-		.btn {
-			background-color: rgb(236, 236, 236);
-			border: none;
-			color: black;
-			padding: 6px 12px;
-			font-size: 16px;
-			cursor: pointer;
-			border-radius: 5px;	
-		}
-		
-		.btn:hover {
-			text-decoration: underline;
-		}
-	
-	
-	
-	
-	</style>
-	
 		<style type="text/css">
 	  	* {
 	  		box-sizing: border-box;
@@ -144,7 +89,7 @@
 		}
 	
 	</style>	
-	
+
 </head>
 <body>
 	<div id="menu">
@@ -152,14 +97,37 @@
 			<li id="logo">ezen</li>
 			<li><a href="<c:url value='/' />">Home</a></li>
 			<li><a href="<c:url value='/board/list' />">Board</a></li>
-			<li><a href="<c:url value='${loginoutLink }' />">${loginout }</a></li>
-			<li style="${SingUp}"><a href="<c:url value='/register/add' />">${SingUp }</a></li>	
-			<li><a href=""><i class="fa fa-search small"></i></a></li>	
+			<li><a href="<c:url value='${loginoutlink}'/>">${loginout}</a></li>
+			<li><a href="<c:url value='/register/add'/>">SingUp</a></li>
+			<li><a href=""><i class="fa fa-search small"></i></a></li>
 		</ul>
 	</div>
 	
+	
 	<script type="text/javascript">
 		$(document).ready(function() {			/* main() */
+			
+			//서머노트
+			$('.summernote').summernote({
+				height: 445,                 // 에디터 높이
+				focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+				lang: "ko-KR",					// 한글 설정
+				placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+				disableResizeEditor: true,	// 크기 조절 기능 삭제
+				toolbar: [
+				   ['fontname', ['fontname']],
+				   ['fontsize', ['fontsize']],
+				   ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+				   ['color', ['forecolor','color']],
+				   ['table', ['table']],
+				   ['para', ['ul', 'ol', 'paragraph']],
+				   ['height', ['height']],
+				   ['insert',['picture','link','video']],
+				   ['view',['help']]
+				]
+			});
+			// 서머노트 종료
+			
 			$("#listBtn").on("click", function() {
 				location.href ="<c:url value='/board/list?page=${page}&pageSize=${pageSize}' />";
 			})
@@ -230,17 +198,15 @@
 		if(msg == "WRT_ERR") alert("게시물 등록에 [실패] 하였습니다. 다시 시도해 주세요.")
 		if(msg == "MOD_ERR") alert("게시물 수정에 [실패] 하였습니다. 다시 시도해 주세요.")
 	</script>
-	
-	
-	
-	
+
 	<div class="container">
 		<h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : "읽기" }</h2>
 			<form id="form" class="frm" action="" method="post">
 				<input type="hidden" name="bno" value="${boardDto.bno }">
 				<input type="text" name="title" value="${boardDto.title }" ${mode=="new" ? "" : "readonly='readonly'" }> <br/>
+				<%-- <div class="<c:if test="${mode eq 'new'}">summernote</c:if>"> --%><!-- textarea 를 div 로 변환하면 가능 -->
 				<textarea rows="20" name="content" ${mode=="new" ? "" : "readonly='readonly'" }>${boardDto.content }</textarea><br/>
-				
+				<!-- </div> -->
 				<c:if test="${mode eq 'new' }">
 					<button type="button" id="writeBtn" class="btn btn-wirte"><i class="fa fa-pen"></i>등록</button>
 				</c:if>
