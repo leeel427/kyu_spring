@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.heart.domain.BoardDto;
+import kr.co.heart.domain.SearchItem;
 
 public interface BoardService {
 
@@ -14,7 +15,8 @@ public interface BoardService {
 	int write(BoardDto boardDto) throws Exception;
 	int modify(BoardDto boardDto)throws Exception;
 	
-	
+	int getSearchResultCnt(SearchItem sc) throws Exception;
+	List<BoardDto> getSearchResultPage(SearchItem sc) throws Exception;
 	
 	
 }

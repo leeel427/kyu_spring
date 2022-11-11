@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="loginId" value="${sessionScope.id} " />
-<c:set var="loginout" value="${loginId==null ? 'Login': 'ID:'+=loginId }" />
+<c:set var="loginout" value="${loginId==null ? 'Login' : 'ID:'+=loginId }" />
 <c:set var="loginoutLink" value="${loginId==null ? '/login/login' : '/login/logout' }" />
 <c:set var="SingUp" value="${loginId==null ? '': 'display:none' }" />
 
@@ -189,9 +188,9 @@
 			<div class="search-container">
 				<form action="<c:url value="/board/list" />" class="search-form" method="get"> 
 					<select class="search-option" name="option">
-						<option value="A" ${option=='A' ? "selected" : "" }>제목+내용</option>
-						<option value="T" ${option=='T' ? "selected" : "" }>제목</option>
-						<option value="W" ${option=='W' ? "selected" : "" }>작성자</option>
+						<option value="A" ${pr.sc.option=='A' || pr.sc.option=='' ? "selected" : "" }>제목+내용</option>
+						<option value="T" ${pr.sc.option=='T' ? "selected" : "" }>제목</option>
+						<option value="W" ${pr.sc.option=='W' ? "selected" : "" }>작성자</option>
 					</select>
 					<input type="text" name="keyword" class="search-input" value="${param.keyword }" placeholder="검색어를 입력해주세요.">
 					<input type="submit" class="search-button" value="검색">
@@ -214,7 +213,7 @@
 					<tr>
 						<td class="no">${boardDto.bno }</td>
 						<td class="title">
-							<a href="<c:url value="/board/read?bno=${boardDto.bno }&page=${page }&pageSize=${pageSize }" />">
+							<a href="<c:url value="/board/read?${pr.sc.queryString}&bno=${boardDto.bno }" />">
 								${boardDto.title }
 							</a>
 						</td>
@@ -238,13 +237,13 @@
 			
 					<c:if test="${totalcnt != null || totalcnt != 0 }">
 						<c:if test="${pr.showPrev }">
-							<a class="page" href="<c:url value="/board/list?page=${pr.beginPage-1 }" />">◁</a>
+							<a class="page" href="<c:url value="/board/list${pr.sc.getQueryString(pr.beginPage-1)}" />">◁</a>
 						</c:if>
 						<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
-							<a class="page" href="<c:url value="/board/list?page=${i }" />">${i }</a>
+							<a class="page" href="<c:url value="/board/list${pr.sc.getQueryString(i)}" />">${i }</a>
 						</c:forEach>
  						<c:if test="${pr.showNext }">
-							<a class="page" href="<c:url value="/board/list?page=${pr.endPage+1 }" />">▷</a>
+							<a class="page" href="<c:url value="/board/list${pr.sc.getQueryString(pr.endPage+1)}" />">▷</a>
 						</c:if> 
 
 					</c:if>

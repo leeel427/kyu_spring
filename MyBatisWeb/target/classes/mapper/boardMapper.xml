@@ -48,7 +48,7 @@
 	  	select * 
 	  	from t_board
 		where true 
-		and #{option} like concat('%' ,'#{keyword}', '%')
+		and title like concat('%' ,#{keyword}, '%')
 		order by reg_date desc, bno desc 
 		limit #{pageSize} offset #{offset}
   	</select> 	
@@ -57,7 +57,7 @@
 		select count(*) 
 		from t_board
 		where true 
-		and #{option} like concat('%' ,'#{keyword}', '%')
+		and title like concat('%' ,#{keyword}, '%')
   	</select>
   	
   	

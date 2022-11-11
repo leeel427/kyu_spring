@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.heart.domain.BoardDto;
+import kr.co.heart.domain.SearchItem;
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
@@ -73,6 +74,20 @@ public class BoardDaoImpl implements BoardDao{
 	public int update(BoardDto boardDto) throws Exception {
 		
 		return session.update(namespace + "update", boardDto);
+	}
+
+
+	@Override
+	public int searchResultCnt(SearchItem sc) throws Exception {
+		
+		return session.selectOne(namespace +"searchResultCnt", sc);
+	}
+
+
+	@Override
+	public List<BoardDto> searchSelectPage(SearchItem sc) throws Exception {
+		
+		return session.selectList(namespace + "searchSelectPage", sc);
 	}
 
 

@@ -1,8 +1,6 @@
 package kr.co.heart.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,11 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.heart.domain.BoardDto;
 import kr.co.heart.domain.PageResolver;
+import kr.co.heart.domain.SearchItem;
 import kr.co.heart.service.BoardService;
 
 @Controller
@@ -133,8 +131,9 @@ public class BoardController {
 	
 	
 	@GetMapping("/list")
-	public String list(@RequestParam(defaultValue = "1") Integer page, 
-					   @RequestParam(defaultValue = "10") Integer pageSize,
+	public String list(//@RequestParam(defaultValue = "1") Integer page, 
+					   //@RequestParam(defaultValue = "10") Integer pageSize,
+						SearchItem sc,
 						Model m,
 						HttpServletRequest request) {
 		
@@ -146,27 +145,27 @@ public class BoardController {
 //			if(page==null) page=1;
 //			if(pageSize==null) pageSize=10;
 			
-			int totalcnt = boardService.getCount();
+			int totalcnt = boardService.getSearchResultCnt(sc);
 			m.addAttribute("totalcnt", totalcnt);
 			
-			PageResolver pageResolver = new PageResolver(totalcnt, page, pageSize);
-			if(page < 0 || page > pageResolver.getTotalCnt()) {
-				page = 1;
-			}
-			if (pageSize < 0 || pageSize > 50) {
-				pageSize = 10;
-			}
+			PageResolver pageResolver = new PageResolver(totalcnt, sc);
+//			if(page < 0 || page > pageResolver.getTotalCnt()) {
+//				page = 1;
+//			}
+//			if (pageSize < 0 || pageSize > 50) {
+//				pageSize = 10;
+//			}
 			
-			Map map = new HashMap();
-			map.put("offset", (page-1)*pageSize);
-			map.put("pageSize", pageSize);
+//			Map map = new HashMap();
+//			map.put("offset", (page-1)*pageSize);
+//			map.put("pageSize", pageSize);
 			
-			List<BoardDto> list = boardService.getPage(map);
+			List<BoardDto> list = boardService.getSearchResultPage(sc);
 			m.addAttribute("list", list);
 			m.addAttribute("pr", pageResolver);
 			
-			m.addAttribute("page", page);
-			m.addAttribute("pageSize", pageSize);
+//			m.addAttribute("page", sc.getPage());
+//			m.addAttribute("pageSize", sc.getPageSize());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
