@@ -178,7 +178,7 @@
 	<script type="text/javascript">
 		let msg = "${msg}"
 		if(msg == "DEL_OK") alert("성공적으로 삭제되었습니다.")
-		if(msg == "DEL_ERR") alert("삭제되었거나 없는 게시 물입니다.")
+		if(msg == "DEL_ERR") alert("삭제되었거나 없는 게시물입니다.")
 		if(msg == "WRT_OK") alert("성공적으로 등록되었습니다.")
 		if(msg == "MOD_OK") alert("성공적으로 수정되었습니다.")
 	</script>
@@ -213,7 +213,7 @@
 					<tr>
 						<td class="no">${boardDto.bno }</td>
 						<td class="title">
-							<a href="<c:url value="/board/read?${pr.sc.queryString}&bno=${boardDto.bno }" />">
+							<a href="<c:url value="/board/read${pr.sc.queryString}&bno=${boardDto.bno }" />">
 								${boardDto.title }
 							</a>
 						</td>
@@ -231,11 +231,11 @@
 			<br>
 			<div class="paging-container">
 				<div class="paging">
-					<c:if test="${totalcnt == null || totalcnt == 0 }">
+					<c:if test="${totalCnt == null || totalCnt == 0 }">
 						<div> 게시물이 없습니다.</div>
 					</c:if>
 			
-					<c:if test="${totalcnt != null || totalcnt != 0 }">
+					<c:if test="${totalCnt != null || totalCnt != 0 }">
 						<c:if test="${pr.showPrev }">
 							<a class="page" href="<c:url value="/board/list${pr.sc.getQueryString(pr.beginPage-1)}" />">◁</a>
 						</c:if>
@@ -245,7 +245,6 @@
  						<c:if test="${pr.showNext }">
 							<a class="page" href="<c:url value="/board/list${pr.sc.getQueryString(pr.endPage+1)}" />">▷</a>
 						</c:if> 
-
 					</c:if>
 				</div>
 			</div>

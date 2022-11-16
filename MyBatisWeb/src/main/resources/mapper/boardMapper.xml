@@ -44,11 +44,27 @@
 		limit #{pageSize} offset #{offset}
   	</select>
   	
+  	<sql id="searchCondition">
+  		<choose>
+			<when test='option=="T"'>
+				AND title LIKE concat('%',#{keyword},'%')
+			</when>
+			<when test='option=="W"'>
+				AND writer LIKE concat('%',#{keyword},'%')
+			</when>
+			<otherwise>
+				AND (title LIKE concat('%',#{keyword},'%')
+				OR content LIKE concat('%',#{keyword},'%'))
+			</otherwise>
+		</choose>
+  	</sql>
+  	
+  	
    	<select id="searchSelectPage" parameterType="SearchItem" resultType="BoardDto">
 	  	select * 
 	  	from t_board
 		where true 
-		and title like concat('%' ,#{keyword}, '%')
+		<include refid="searchCondition" />
 		order by reg_date desc, bno desc 
 		limit #{pageSize} offset #{offset}
   	</select> 	
@@ -57,7 +73,7 @@
 		select count(*) 
 		from t_board
 		where true 
-		and title like concat('%' ,#{keyword}, '%')
+		<include refid="searchCondition" />
   	</select>
   	
   	

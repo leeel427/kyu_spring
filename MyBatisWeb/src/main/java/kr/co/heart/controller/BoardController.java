@@ -110,15 +110,15 @@ public class BoardController {
 	
 	
 	@GetMapping("/read")
-	public String read(Integer bno, Integer page, Integer pageSize, Model m) {
+	public String read(Integer bno, /*Integer page, Integer pageSize*/ SearchItem sc, Model m) {
 		try {
 			BoardDto boardDto = boardService.read(bno);
 			System.out.println(boardDto);
 //			m.addAttribute("boardDto", boardDto);				// 아래 문장과 동일
 			m.addAttribute(boardDto);							// 생략시 BoardDto 첫 문자를 소문자로 바꾸어 키값으로 인식
 
-			m.addAttribute("page", page);
-			m.addAttribute("pageSize", pageSize);
+//			m.addAttribute("page", page);
+//			m.addAttribute("pageSize", pageSize);
 			
 			
 		} catch (Exception e) {
@@ -145,10 +145,10 @@ public class BoardController {
 //			if(page==null) page=1;
 //			if(pageSize==null) pageSize=10;
 			
-			int totalcnt = boardService.getSearchResultCnt(sc);
-			m.addAttribute("totalcnt", totalcnt);
+			int totalCnt = boardService.getSearchResultCnt(sc);
+			m.addAttribute("totalCnt", totalCnt);
 			
-			PageResolver pageResolver = new PageResolver(totalcnt, sc);
+			PageResolver pageResolver = new PageResolver(totalCnt, sc);
 //			if(page < 0 || page > pageResolver.getTotalCnt()) {
 //				page = 1;
 //			}
