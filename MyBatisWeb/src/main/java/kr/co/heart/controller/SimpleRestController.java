@@ -5,15 +5,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.heart.domain.Person;
 
+
+//@RestController		// view를 불러오는게 아닌 값으로 바로 넘어갈때 (@Controller + @ResponseBody)
 @Controller
 public class SimpleRestController {
 	
 	@GetMapping("/ajax")
 	public String ajax(){
 		return "ajax";
+	}
+	
+	@GetMapping("/test")
+	public String test(){
+		return "test";
 	}
 	
 	@ResponseBody

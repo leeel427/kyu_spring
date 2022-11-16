@@ -5,10 +5,6 @@ import java.util.Objects;
 
 public class BoardDto {
 
-	/*
-,	up_date			date default current_timestamp
-	 */
-	
 	private Integer bno;
 	private String title;
 	private String content;

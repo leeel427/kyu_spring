@@ -106,6 +106,42 @@
 	<script type="text/javascript">
 		$(document).ready(function() {			/* main() */
 			
+			let bno = 220;
+			
+			let showList = function(bno) {
+				$.ajax({
+					type : 'GET',							// 요청 메서드
+					url : '/heart/comments?bno='+bno,		// 요청 URI
+					success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
+						$("#commentList").html(toHtml(result))		// result 는 서버가 전송한 데이터
+					},
+					error : function() {alert("error")}		// 에ꁰ가 발생했을 떄, 호출될 함수
+				})
+			}
+			
+			let toHtml = function(comments) {
+				let tmp = "<ul>"
+				
+				comments.forEach(function(comment) {
+					tmp += '<li data-cno=' + comment.cno
+					tmp += ' data-bno=' + comment.bno
+					tmp += ' data-pcno=' + comment.pcno + '>'
+					tmp += ' commenter=<span class="commenter">' + comment.commenter + '</span>'
+					tmp += ' comment=<span class="comment">' + comment.comment + '</span>'
+					tmp += '</li><br>'
+				})
+				
+				return tmp += "</ul>"
+			}
+			
+			$("#sendBtn").click(function() {
+				showList(bno)
+			})
+			
+			
+			
+			
+			
 			//서머노트
 			$('.summernote').summernote({
 				height: 445,                 // 에디터 높이
@@ -219,9 +255,10 @@
 	            </c:if>
 				
 				<button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i>목록</button>
-				
-				
+					
 			</form>
+				<button id="sendBtn" type="button">SEND</button>
+				<div id="commentList"></div>
 	</div>
 	
 	
