@@ -98,7 +98,7 @@ public class BoardDaoImpl implements BoardDao{
 		map.put("bno", bno);
 		return session.update(namespace+"updateCommentCnt", map);
 	}
-
+	
 	
 	
 }
